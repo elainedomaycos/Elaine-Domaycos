@@ -722,6 +722,7 @@
             display: grid;
             grid-template-columns: repeat(8, 1fr);
             gap: 30px;
+            margin-top: -70px;
             justify-items: center;
             align-items: start;
         }
