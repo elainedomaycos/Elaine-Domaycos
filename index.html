@@ -1,543 +1,378 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Elaine Domaycos — Portfolio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elaine Domaycos - Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-<!-- Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-<style>
-  :root{
-    --bg: #f8f1e7;       /* beige base */
-    --muted: #6b6b6b;    /* muted text */
-    --accent: #d97706;   /* warm yellow/orange */
-    --accent-dark: #b45309;
-    --card: #ffffff;
-    --glass: rgba(255,255,255,0.6);
-    --shadow: 0 8px 30px rgba(15,15,15,0.08);
-    --glass-2: rgba(255,255,255,0.85);
-    --dot: #e9ded0;
-    --dot-active: #caa67a;
-  }
-
-  /* Reset & basics */
-  *{box-sizing:border-box}
-  html,body{height:100%}
-  body{
-    margin:0;
-    font-family: "Poppins",system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    background: var(--bg);
-    color:#222;
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
-    scroll-behavior:smooth;
-  }
-
-  a{ color:inherit; text-decoration:none }
-  img{ display:block; max-width:100%; }
-
-  /* NAV */
-  .nav {
-    position: fixed;
-    left:0; right:0; top:0;
-    height:72px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:16px;
-    padding: 0 28px;
-    z-index:999;
-    background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.6));
-    transform: translateY(0);
-    transition: transform .35s cubic-bezier(.2,.9,.25,1), box-shadow .25s ease, background .25s ease;
-    box-shadow: 0 6px 20px rgba(10,10,10,0.02);
-    backdrop-filter: blur(6px);
-  }
-  .nav.hidden { transform: translateY(-120%); }
-  .nav .brand { font-weight:700; font-size:1.1rem; color:var(--accent-dark); letter-spacing:0.6px; }
-  .nav .links { display:flex; gap:18px; align-items:center; }
-  .nav .links a { color:var(--muted); font-weight:500; padding:8px 10px; border-radius:8px; }
-  .nav .links a:hover { color:var(--accent-dark); background: rgba(0,0,0,0.02) }
-
-  .nav .cta { padding:8px 14px; background:var(--accent); color:white; border-radius:999px; font-weight:600; }
-  .nav .cta.secondary { background:transparent; color:var(--accent); border:2px solid var(--accent); padding:6px 12px; }
-
-  /* CONTAINER SIZING */
-  .wrap { max-width:1200px; margin:0 auto; width:100%; padding:0 20px; }
-
-  /* HERO / HOME */
-  .hero {
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    gap:36px;
-    padding-top:80px;
-    padding-bottom:40px;
-  }
-
-  .hero-left { flex:1; }
-  .headline {
-    font-size: clamp(40px, 7vw, 76px);
-    line-height:0.95;
-    font-weight:800;
-    margin:0 0 16px;
-  }
-  .headline .accent { color:var(--accent-dark); }
-
-  .sub {
-    color:var(--muted);
-    max-width:520px;
-    margin-bottom:24px;
-    font-weight:500;
-  }
-
-  .hero-cta { display:flex; gap:12px; align-items:center; }
-
-  .btn {
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-    border-radius:999px;
-    padding:12px 18px;
-    font-weight:600;
-    cursor:pointer;
-    transition: transform .18s ease, box-shadow .18s ease;
-  }
-  .btn:active{ transform:translateY(1px) }
-  .btn.primary { background:var(--accent); color:white; box-shadow:0 8px 20px rgba(182,112,22,0.12);}
-  .btn.ghost { background:transparent; border:2px solid var(--accent); color:var(--accent); }
-
-  /* Image cluster (right) */
-  .hero-right { flex:1; display:flex; align-items:center; justify-content:center; position:relative; min-height:360px; }
-  .img-card {
-    width: 260px;
-    height: 340px;
-    border-radius: 22px;
-    overflow:hidden;
-    background: var(--card);
-    box-shadow: var(--shadow);
-    transform-origin:center;
-    transition: transform .45s cubic-bezier(.2,.9,.25,1), box-shadow .3s ease;
-  }
-  .img-card img{ width:100%; height:100%; object-fit:cover; display:block; }
-
-  /* overlap/tilt */
-  .img-stack { position:relative; width:340px; height:360px; }
-  .img-stack .card-1{ position:absolute; top:14px; left:28px; transform: rotate(-6deg); z-index:10; }
-  .img-stack .card-2{ position:absolute; top:-6px; left:92px; transform: rotate(6deg); z-index:20; box-shadow: 0 18px 40px rgba(10,10,10,0.12); }
-  .img-stack .card-3{ position:absolute; top:110px; left:40px; width:180px; height:220px; transform: rotate(-3deg); z-index:5; opacity:0.95; }
-
-  .img-card:hover { transform: translateY(-10px) rotate(0deg); box-shadow: 0 22px 48px rgba(10,10,10,0.14); }
-
-  /* SECTION */
-  .section { padding:80px 0; }
-  .section-title {
-    font-size:1.75rem; font-weight:700; margin:0 0 22px;
-    opacity:0; transform: translateY(-16px); transition: all .6s cubic-bezier(.2,.9,.25,1);
-  }
-  .section-title.visible { opacity:1; transform: translateY(0); }
-
-  /* PROJECTS (horizontal scroll) */
-  .projects-wrap { position:relative; margin-bottom:18px; }
-  .projects-row {
-    display:flex; gap:20px; overflow-x:auto; padding:18px 8px; scroll-snap-type:x mandatory;
-    -webkit-overflow-scrolling:touch;
-  }
-  .projects-row::-webkit-scrollbar{ height:10px; }
-  .projects-row::-webkit-scrollbar-thumb{ background:linear-gradient(180deg,var(--accent),var(--accent-dark)); border-radius:999px; }
-
-  .project {
-    flex: 0 0 320px;
-    scroll-snap-align:start;
-    background: var(--card);
-    border-radius:20px;
-    box-shadow:var(--shadow);
-    overflow:hidden;
-    transform: translateY(16px);
-    opacity:0;
-    transition: transform .6s cubic-bezier(.2,.9,.25,1), opacity .6s ease;
-  }
-  .project.visible { transform: translateY(0); opacity:1; }
-
-  .project .thumb{ height:180px; background:#e9e2d8; display:block; }
-  .project .meta { padding:16px; }
-  .project h4 { margin:0 0 8px; font-size:1.05rem; color:var(--accent-dark); }
-  .project p { margin:0 0 12px; color:var(--muted); font-size:0.95rem; line-height:1.4; }
-  .project .project-actions { display:flex; gap:8px; align-items:center; }
-
-  .btn.gh {
-    background:transparent; border:1px solid #1113; color:var(--muted); padding:8px 12px; border-radius:10px; font-weight:600;
-  }
-  .btn.gh:hover { color:var(--accent-dark); border-color:var(--accent); }
-
-  /* Arrow scroll buttons */
-  .arrow {
-    position:absolute; top:50%; transform:translateY(-50%); width:40px; height:40px; border-radius:8px;
-    display:flex; align-items:center; justify-content:center; background:var(--glass-2); box-shadow:var(--shadow);
-    cursor:pointer; border:1px solid rgba(0,0,0,0.04);
-  }
-  .arrow.left { left:6px; }
-  .arrow.right { right:6px; }
-
-  /* Pagination dots */
-  .dots-wrap { display:flex; justify-content:center; gap:8px; margin-top:12px; }
-  .dot {
-    width:10px; height:10px; border-radius:50%; background:var(--dot); cursor:pointer; transition: transform .18s ease, background .18s ease;
-    border:1px solid rgba(0,0,0,0.03);
-  }
-  .dot.active { background:var(--dot-active); transform:scale(1.12); }
-
-  /* SKILLS & AWARDS grid */
-  .grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:18px; margin-top:16px; }
-  .skill { background:var(--card); padding:18px; border-radius:14px; box-shadow:var(--shadow); transform: translateY(16px); opacity:0; transition: all .6s ease; }
-  .skill.visible { transform: translateY(0); opacity:1; }
-  .skill h5 { margin:0 0 6px; color:var(--accent-dark); }
-
-  /* CONTACT */
-  .contact { max-width:680px; margin:0 auto; text-align:center; }
-
-  /* back to top */
-  .back-top {
-    position:fixed; right:18px; bottom:18px; width:52px; height:52px; border-radius:999px;
-    display:grid; place-items:center; background:var(--accent); color:white; box-shadow:0 12px 28px rgba(10,10,10,0.18);
-    cursor:pointer; transform:translateY(20px); opacity:0; transition:all .28s ease;
-    z-index:999;
-  }
-  .back-top.show { transform:translateY(0); opacity:1; }
-
-  /* Responsive */
-  @media (max-width:900px){
-    .hero { flex-direction:column-reverse; padding-top:100px }
-    .hero-right { margin-bottom:20px }
-    .img-stack{ width:280px; height:320px; }
-    .img-stack .card-1{ left:8px; }
-    .img-stack .card-2{ left:86px; }
-    .img-stack .card-3{ left:18px; top:160px; }
-    .projects-row { padding:14px 6px; }
-  }
-
-  @media (max-width:520px){
-    .nav { padding: 0 14px; height:64px; }
-    .nav .links { display:none; }
-    .headline{ text-align:center }
-    .hero-left{ text-align:center }
-    .project { flex: 0 0 260px; }
-  }
-</style>
 </head>
 <body>
-
-<!-- NAV -->
-<header class="nav" id="siteNav">
-  <div class="brand wrap">EDomaycos</div>
-  <nav class="links wrap" aria-label="Primary">
-    <a href="#home">Home</a>
-    <a href="#projects">Projects</a>
-    <a href="#skills">Skills</a>
-    <a href="#awards">Awards</a>
-    <a href="#contact">Contact</a>
-  </nav>
-  <div style="display:flex; gap:10px; align-items:center;">
-    <a class="cta btn primary" href="#contact">Contact</a>
-  </div>
-</header>
-
-<!-- HERO / HOME -->
-<main>
-  <section id="home" class="hero wrap" aria-label="Home">
-    <div class="hero-left">
-      <h1 class="headline">Hello! I'm <span class="accent">Elaine Domaycos</span></h1>
-      <p class="sub">A digital creator and developer passionate about designing beautiful, functional, and interactive experiences that tell stories through technology.</p>
-
-      <div class="hero-cta">
-        <a class="btn primary" href="#projects" id="viewWorkBtn">View My Work</a>
-        <a class="btn ghost" href="Elaine-Domaycos-Resume.pdf" download>Download CV</a>
-      </div>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <h1 id="loading-text">coding<span class="dots"></span></h1>
     </div>
 
-    <div class="hero-right" aria-hidden="true">
-      <!-- overlapping image placeholders -->
-      <div class="img-stack" role="presentation">
-        <div class="img-card card-1" title="placeholder">
-          <img src="https://via.placeholder.com/520x680?text=Project+Preview+1" alt="placeholder 1">
-        </div>
-        <div class="img-card card-2" title="placeholder">
-          <img src="https://via.placeholder.com/520x680?text=Project+Preview+2" alt="placeholder 2">
-        </div>
-        <div class="img-card card-3" title="badge small" style="width:180px;height:220px;border-radius:18px;">
-          <img src="https://via.placeholder.com/360x460?text=Thumb" alt="thumb">
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PROJECTS -->
-  <section id="projects" class="section wrap">
-    <h2 class="section-title">Featured Projects</h2>
-
-    <div class="projects-wrap" id="projectsWrap">
-      <div class="arrow left" id="projLeft" aria-hidden="true">◀</div>
-      <div class="arrow right" id="projRight" aria-hidden="true">▶</div>
-
-      <div class="projects-row" id="projectsRow" tabindex="0" aria-label="Project carousel">
-        <!-- Project cards -->
-        <article class="project" data-animate>
-          <div class="thumb"><img src="https://via.placeholder.com/640x360?text=Project+1" alt="project 1" style="width:100%;height:100%;object-fit:cover;"></div>
-          <div class="meta">
-            <h4>Project One</h4>
-            <p>A modern portfolio concept using warm minimalism and micro-interactions.</p>
-            <div class="project-actions">
-              <a class="btn gh" href="#" target="_blank" rel="noopener">View on GitHub</a>
-              <a class="btn" href="#" style="background:transparent;color:var(--accent-dark);border-radius:10px;padding:8px 10px;border:1px solid rgba(0,0,0,0.06);">Live demo</a>
+    <!-- Main Website -->
+    <div id="main-content" class="hidden">
+        <!-- Navigation Bar -->
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-strip">
+                    <div class="logo">ED.</div>
+                    <button class="mobile-toggle">☰</button>
+                    <ul class="nav-links">
+                        <li><a href="#home" class="nav-link active">HOME</a></li>
+                        <li><a href="#projects" class="nav-link">PROJECTS</a></li>
+                        <li><a href="#education" class="nav-link">EDUCATION</a></li>
+                        <li><a href="#achievements" class="nav-link">NOTABLE ACHIEVEMENTS</a></li>
+                    </ul>
+                    <a href="#contact" class="contact-btn">CONTACT ME</a>
+                </div>
             </div>
-          </div>
-        </article>
+        </nav>
 
-        <article class="project" data-animate>
-          <div class="thumb"><img src="https://via.placeholder.com/640x360?text=Project+2" alt="project 2" style="width:100%;height:100%;object-fit:cover;"></div>
-          <div class="meta">
-            <h4>Project Two</h4>
-            <p>Interactive component library and design system for rapid prototyping.</p>
-            <div class="project-actions">
-              <a class="btn gh" href="#" target="_blank" rel="noopener">View on GitHub</a>
+        <!-- Home Section -->
+        <section id="home" class="home-section">
+            <div class="home-container">
+                <!-- Left Side - Polaroid Photo -->
+                <div class="photo-frame animate-on-scroll">
+                    <div class="photo-border">
+                        <img src="ARA_2931.jpg" alt="Elaine Domaycos" class="profile-photo" />
+                        <h2 class="photo-caption">ELAINE DOMAYCOS</h2>
+                    </div>
+                </div>
+
+                <!-- Right Side - Portfolio Text -->
+                <div class="home-text">
+                    <div class="label-top animate-on-scroll">
+                        <span class="year-tag">2025</span>
+                        <span class="uiux-tag">UI/UX</span>
+                    </div>
+                    
+                    <div style="position: relative;" class="animate-on-scroll">
+                        <h1 class="portfolio-text">
+                            PORTFOLIO
+                            <!-- Anchor Points -->
+                            <span class="anchor-point anchor-top-right"></span>
+                            <span class="anchor-point anchor-bottom-left"></span>
+                            <span class="anchor-point anchor-bottom-right"></span>
+                            <span class="anchor-point anchor-middle-top"></span>
+                            <span class="anchor-point anchor-middle-bottom"></span>
+                            <span class="anchor-point anchor-middle-left"></span>
+                            <span class="anchor-point anchor-middle-right"></span>
+                        </h1>
+                        <!-- Floating Cursor -->
+                        <div class="floating-cursor">
+                            <div class="cursor-arrow"></div>
+                        </div>
+                        <!-- Download CV Button -->
+                        <a href="Resume of Elaine Domaycos (1).pdf" class="download-btn" download>DOWNLOAD CV</a>
+                    </div>
+                    
+                    <!-- Social Media Icons -->
+                    <div class="social-links animate-on-scroll">
+                        <a href="https://www.linkedin.com/in/ma-kassandra-elaine-domaycos/" target="_blank" class="social-icon linkedin" title="LinkedIn">
+                            <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                        </a>
+                        <a href="https://github.com/elainedomaycos" target="_blank" class="social-icon github" title="GitHub">
+                            <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.facebook.com/elaine.domaycos.1" target="_blank" class="social-icon facebook" title="Facebook">
+                            <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.instagram.com/mariadionysiaa/" target="_blank" class="social-icon instagram" title="Instagram">
+                            <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
             </div>
-          </div>
-        </article>
+        </section>
 
-        <article class="project" data-animate>
-          <div class="thumb"><img src="https://via.placeholder.com/640x360?text=Project+3" alt="project 3" style="width:100%;height:100%;object-fit:cover;"></div>
-          <div class="meta">
-            <h4>Project Three</h4>
-            <p>Gamified UI concept with motion-driven storytelling and creative visuals.</p>
-            <div class="project-actions">
-              <a class="btn gh" href="#" target="_blank" rel="noopener">View on GitHub</a>
+        <!-- Projects Section -->
+        <section id="projects" class="projects-section">
+            <div class="section-header animate-on-scroll">
+                <h2 class="section-title">MY PROJECTS</h2>
+                <p class="section-subtitle">Hover to explore each project</p>
             </div>
-          </div>
-        </article>
 
-        <article class="project" data-animate>
-          <div class="thumb"><img src="https://via.placeholder.com/640x360?text=Project+4" alt="project 4" style="width:100%;height:100%;object-fit:cover;"></div>
-          <div class="meta">
-            <h4>Project Four</h4>
-            <p>Experimental layouts and small product experiences for digital storytelling.</p>
-            <div class="project-actions">
-              <a class="btn gh" href="#" target="_blank" rel="noopener">View on GitHub</a>
+            <div class="carousel-wrapper">
+                <div class="carousel-nav prev" onclick="moveCarousel(-1)">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+                    </svg>
+                </div>
+
+                <div class="carousel-container">
+                    <div class="carousel-track" id="carouselTrack">
+                        <div class="project-card animate-on-scroll">
+                            <span class="project-category">WEBSITE</span>
+                            <img src="p1.png" alt="Project 1" class="project-image">
+                            <div class="project-overlay">
+                                <h3 class="project-title">Dive In Mabini</h3>
+                                <p class="project-description">A responsive online shopping platform with cart and payment integration.</p>
+                                <a href="https://mabini-tourism-pearl.vercel.app/#hero-section" class="github-btn" target="_blank">View Project</a>
+                            </div>
+                        </div>
+
+                        <div class="project-card animate-on-scroll">
+                            <span class="project-category">UI/UX DESIGN</span>
+                            <img src="p2.png" alt="Project 2" class="project-image">
+                            <div class="project-overlay">
+                                <h3 class="project-title">STOCK OUT</h3>
+                                <p class="project-description">Modern banking app with intuitive navigation and seamless UX.</p>
+                                <a href="https://www.figma.com/proto/mrEdOC2c6W5NZ2mj3k0knB/AIMS-x-STOCKOUT?node-id=167-8770&t=qAqi90xWsE59fgtk-1&scaling=scale-down-width&content-scaling=fixed&page-id=1%3A3&starting-point-node-id=143%3A7736&show-proto-sidebar=1" class="github-btn" target="_blank">View Project</a>
+                            </div>
+                        </div>
+
+                        <div class="project-card animate-on-scroll">
+                            <span class="project-category">UI/UX DESIGN</span>
+                            <img src="p3.png" alt="Project 3" class="project-image">
+                            <div class="project-overlay">
+                                <h3 class="project-title">Universal Steel</h3>
+                                <p class="project-description">A web-based portal for managing student records and class schedules.</p>
+                                <a href="https://www.figma.com/proto/v90UQZ0pO6iPATBZETV19Q/DevFlex-UI-UX-Design?page-id=0%3A3&node-id=289-1731&viewport=-738%2C165%2C0.89&t=9qDx7QimDOyKyctl-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=219%3A643&fbclid=IwY2xjawN4z9dleHRuA2FlbQIxMABicmlkETFiSVZaR2oxZE4zcXY4ZUZ3c3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHvmyfXE8Ml4dikP_-2ulTf4S27LLzC-XnNN19Sc4YCpZeV6BOsUSwBhflBm5_aem_8ATniAuX86b3DThBdzBafQ" class="github-btn" target="_blank">View Project</a>
+                            </div>
+                        </div>
+
+                        <div class="project-card animate-on-scroll">
+                            <span class="project-category">UI/UX DESIGN</span>
+                            <img src="p4.png" alt="Project 4" class="project-image">
+                            <div class="project-overlay">
+                                <h3 class="project-title">GulWay</h3>
+                                <p class="project-description">Transportation booking platform.</p>
+                                <a href="https://www.figma.com/proto/nhBWFX1ge4IWZySKN0P5tg/Projects?node-id=1-2&t=96diLTrpvYColAgm-0&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=1%3A2&show-proto-sidebar=1" class="github-btn" target="_blank">View Project</a>
+                            </div>
+                        </div>
+
+                        <div class="project-card animate-on-scroll">
+                            <span class="project-category">WEBSITE</span>
+                            <img src="p6.png" alt="Project 5" class="project-image">
+                            <div class="project-overlay">
+                                <h3 class="project-title">La Pizzaria</h3>
+                                <p class="project-description">Restaurant website with online ordering.</p>
+                                <a href="https://elainedomaycos.github.io/LaPizzaria/" class="github-btn" target="_blank">View Project</a>
+                            </div>
+                        </div>
+
+                        <div class="project-card animate-on-scroll">
+                            <span class="project-category">WEBSITE</span>
+                            <img src="P5.png" alt="Project 6" class="project-image">
+                            <div class="project-overlay">
+                                <h3 class="project-title">School Website</h3>
+                                <p class="project-description">Educational institution portal.</p>
+                                <a href="https://anselmosandoval.github.io/index.HTML" class="github-btn" target="_blank">View Project</a>
+                            </div>
+                        </div>
+
+                        <div class="project-card animate-on-scroll">
+                            <span class="project-category">School Project</span>
+                            <img src="p7.png" alt="Project 7" class="project-image">
+                            <div class="project-overlay">
+                                <h3 class="project-title">Vista Mabini</h3>
+                                <p class="project-description">Tourism showcase platform.</p>
+                                <a href="https://github.com/elainedomaycos/VistaMabini" class="github-btn" target="_blank">View Github</a>
+                            </div>
+                        </div>
+
+                        <div class="project-card animate-on-scroll">
+                            <span class="project-category">Freelance Project</span>
+                            <img src="p8.png" alt="Project 8" class="project-image">
+                            <div class="project-overlay">
+                                <h3 class="project-title">JMB Industries Co</h3>
+                                <p class="project-description">Corporate business website.</p>
+                                <a href="https://jmbindustriesco.wixstudio.com/jmbindustries?fbclid=IwZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQPNDM3NjI2MzE2OTczNzg4AAEe0O72Gl-Z0_7Hf0ysFomEyG5Qo4dKPmgb-PbQmWxs0BW36dJ4-OVJYwzmOG8_aem_CqeH6UhxL8pagy9uBescFw" class="github-btn" target="_blank">View Project</a>
+                            </div>
+                        </div>
+
+                        <div class="project-card animate-on-scroll">
+                            <span class="project-category">Freelance Project</span>
+                            <img src="p9.png" alt="Project 9" class="project-image">
+                            <div class="project-overlay">
+                                <h3 class="project-title">San Jose Elementary School</h3>
+                                <p class="project-description">Educational website for elementary school.</p>
+                                <a href="https://sanjosees107461.wixsite.com/sanjose-es?fbclid=IwZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQPNDM3NjI2MzE2OTczNzg4AAEeGNrsg4ZkZ5p5HUEBNT0E3J2jwcSMhT1mb4xr9Kh9X_UtqMt7IkgHKIUTBzo_aem_szEvkElGzZNKOE9bV_WbGw" class="github-btn" target="_blank">View Project</a>
+                            </div>
+                        </div>
+
+                        <div class="project-card animate-on-scroll">
+                            <span class="project-category">School Project</span>
+                            <img src="p10.png" alt="Project 10" class="project-image">
+                            <div class="project-overlay">
+                                <h3 class="project-title">Mabini Batangas</h3>
+                                <p class="project-description">Municipal tourism website.</p>
+                                <a href="https://domaycoselaine.wixsite.com/mabini-batangas-1" class="github-btn" target="_blank">View Project</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-nav next" onclick="moveCarousel(1)">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+                    </svg>
+                </div>
             </div>
-          </div>
-        </article>
 
-        <article class="project" data-animate>
-          <div class="thumb"><img src="https://via.placeholder.com/640x360?text=Project+5" alt="project 5" style="width:100%;height:100%;object-fit:cover;"></div>
-          <div class="meta">
-            <h4>Project Five</h4>
-            <p>Small experimental app exploring motion-first interfaces.</p>
-            <div class="project-actions">
-              <a class="btn gh" href="#" target="_blank" rel="noopener">View on GitHub</a>
+            <div class="carousel-dots" id="carouselDots"></div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education" class="education-section">
+            <h2 class="section-title animate-on-scroll">EDUCATION</h2>
+
+            <div class="edu-layout">
+                <div class="school school-left animate-left">
+                    <img src="bsu logo.png" alt="Batangas State University">
+                    <div>
+                        <p><strong>Bachelor of Science in Information Technology</strong><br><span>2023 – Present</span><br><strong>Dean's Lister</strong></p>
+                    </div>
+                </div>
+
+                <div class="photo-center animate-on-scroll">
+                    <img src="eli.png" alt="Your Photo">
+                </div>
+
+                <div class="school school-right animate-right">
+                    <img src="anselmo.png" alt="Mabini College">
+                    <div>
+                        <p><strong>Senior High School – ICT Strand</strong><br><span>2021 – 2023</span><br><strong>GWA: 94</strong></p>
+                    </div>
+                </div>
             </div>
-          </div>
-        </article>
-      </div>
 
-      <!-- pagination dots -->
-      <div class="dots-wrap" id="dotsWrap" aria-hidden="false"></div>
+            <div class="skills-bar">
+                <div class="skill animate-on-scroll">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg" alt="Figma">
+                    <span class="skill-name">Figma</span>
+                </div>
+
+                <div class="skill animate-on-scroll">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Adobe_Photoshop_CC_icon.svg" alt="Photoshop">
+                    <span class="skill-name">Photoshop</span>
+                </div>
+
+                <div class="skill animate-on-scroll">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/61/HTML5_logo_and_wordmark.svg" alt="HTML">
+                    <span class="skill-name">HTML</span>
+                </div>
+
+                <div class="skill animate-on-scroll">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/CSS3_logo_and_wordmark.svg" alt="CSS">
+                    <span class="skill-name">CSS</span>
+                </div>
+
+                <div class="skill animate-on-scroll">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png" alt="JavaScript">
+                    <span class="skill-name">JavaScript</span>
+                </div>
+
+                <div class="skill animate-on-scroll">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python">
+                    <span class="skill-name">Python</span>
+                </div>
+
+                <div class="skill animate-on-scroll">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/3/30/Java_programming_language_logo.svg" alt="Java">
+                    <span class="skill-name">Java</span>
+                </div>
+
+                <div class="skill animate-on-scroll">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/d/dd/MySQL_logo.svg" alt="MySQL">
+                    <span class="skill-name">MySQL</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Achievements Section -->
+        <section id="achievements" class="achievements-section">
+            <div class="achievements-container">
+                <div class="achievement-carousel animate-left">
+                    <div class="carousel-images">
+                        <div class="carousel-item active">
+                            <img src="na.jpg" alt="Achievement 1">
+                            <div class="overlay">
+                                <h3>1ST Place at the START UP PITCHING COMPETITION</h3>
+                                <p>Recognized for excellence in user-centered design.</p>
+                            </div>
+                        </div>
+
+                        <div class="carousel-item">
+                            <img src="na2.jpg" alt="Achievement 2">
+                            <div class="overlay">
+                                <h3>Best Innovative Research</h3>
+                                <p>Hailed as Best Innovative Research in the 2023 Research Expo</p>
+                            </div>
+                        </div>
+
+                        <div class="carousel-item">
+                            <img src="na3.jpg" alt="Achievement 3">
+                            <div class="overlay">
+                                <h3>CICS Mabini Student Council President A.Y 2025-2026</h3>
+                                <p>Consistent academic excellence for 4 semesters.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="carousel-btn">➜</button>
+                </div>
+
+                <div class="achievement-text animate-right">
+                    <h2>Notable Achievements</h2>
+                    <p>
+                        A collection of milestones showcasing creativity, innovation, and consistent dedication.
+                        Each achievement represents growth in design, development, and leadership.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <footer class="contact-section" id="contact">
+            <div class="contact-container">
+                <div class="contact-text animate-left">
+                    <h2>Let's Work Together</h2>
+                    <p>Interested in collaborating or have a project in mind? Feel free to reach out via email or any of my socials below.</p>
+
+                    <div class="contact-info">
+                        <p><strong>Email:</strong> <a href="mailto:elaine.domaycos@gmail.com">elaine.domaycos@gmail.com</a></p>
+                        <p><strong>Phone:</strong> <a href="tel:+639123456789">+63 912 345 6789</a></p>
+                    </div>
+
+                    <div class="social-icons">
+                        <a href="https://facebook.com/yourprofile" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://twitter.com/yourprofile" target="_blank"><i class="fab fa-x-twitter"></i></a>
+                        <a href="https://www.instagram.com/yourprofile" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/in/yourprofile" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="mailto:youremail@gmail.com"><i class="fas fa-envelope"></i></a>
+                        <a href="https://github.com/yourprofile" target="_blank"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+
+                <div class="contact-form animate-right">
+                    <input type="text" name="name" placeholder="Your Name" required>
+                    <input type="email" name="email" placeholder="Your Email" required>
+                    <textarea name="message" rows="4" placeholder="Your Message" required></textarea>
+                    <button type="button" class="send-btn">Send Message</button>
+                </div>
+            </div>
+
+            <p class="footer-credit">© 2025 Elaine Domaycos. All rights reserved.</p>
+        </footer>
     </div>
-  </section>
 
-  <!-- SKILLS -->
-  <section id="skills" class="section wrap">
-    <h2 class="section-title">Skills</h2>
-    <div class="grid">
-      <div class="skill" data-animate><h5>UI / UX Design</h5><p>Design systems, wireframes, prototypes, usability-driven interfaces.</p></div>
-      <div class="skill" data-animate><h5>Front-end Dev</h5><p>HTML, CSS, JavaScript — responsive, accessible, and performant websites.</p></div>
-      <div class="skill" data-animate><h5>Graphic Design</h5><p>Branding, illustration, and visual composition for digital products.</p></div>
-      <div class="skill" data-animate><h5>Interaction Design</h5><p>Micro-interactions, motion design, and delightful details.</p></div>
-    </div>
-  </section>
 
-  <!-- AWARDS -->
-  <section id="awards" class="section wrap" >
-    <h2 class="section-title">Awards & Recognition</h2>
-    <div class="grid">
-      <div class="skill" data-animate><h5>Startup Pitch — 1st Place</h5><p>BatStateU — Presented a food-tech concept that won 1st place.</p></div>
-      <div class="skill" data-animate><h5>Best UI Design</h5><p>Tech Expo 2023 — Recognized for clean, impactful UI solutions.</p></div>
-      <div class="skill" data-animate><h5>Digital Art Award</h5><p>Excellence in creative applications of digital art and UX.</p></div>
-    </div>
-  </section>
 
-  <!-- CONTACT -->
-  <section id="contact" class="section wrap">
-    <h2 class="section-title">Let's Connect</h2>
-    <div class="contact">
-      <p style="color:var(--muted); margin-bottom:18px;">Have a project in mind or want to collaborate? Send a message or email me.</p>
-      <a class="btn primary" href="mailto:elainedomaycos@gmail.com">Send Email</a>
-      <div style="margin-top:18px; color:var(--muted); font-size:0.95rem;">Or find projects on GitHub — links are on each project card.</div>
-    </div>
-  </section>
-</main>
-
-<!-- BACK TO TOP -->
-<button class="back-top" id="backTop" aria-label="Back to top" title="Back to top">↑</button>
-
-<script>
-/* ---------- NAV HIDE ON SCROLL ---------- */
-(function(){
-  const nav = document.getElementById('siteNav');
-  let lastY = window.scrollY;
-  let ticking = false;
-
-  function onScroll(){
-    const y = window.scrollY;
-    if (y > lastY && y > 80) { // scrolling down
-      nav.classList.add('hidden');
-    } else {
-      nav.classList.remove('hidden');
-    }
-    lastY = y;
-  }
-
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      window.requestAnimationFrame(()=>{ onScroll(); ticking = false; });
-      ticking = true;
-    }
-  });
-})();
-
-/* ---------- INTERSECTION OBSERVER FOR ANIMATIONS ---------- */
-(function(){
-  const opts = { root: null, rootMargin: '0px', threshold: 0.14 };
-  const obs = new IntersectionObserver((entries, o) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        o.unobserve(e.target);
-      }
-    });
-  }, opts);
-
-  // titles (fade from top)
-  document.querySelectorAll('.section-title').forEach(el => obs.observe(el));
-  // cards/items (fade up)
-  document.querySelectorAll('[data-animate]').forEach(el => obs.observe(el));
-})();
-
-/* ---------- PROJECTS HORIZONTAL SCROLL + PAGINATION ---------- */
-(function(){
-  const row = document.getElementById('projectsRow');
-  const left = document.getElementById('projLeft');
-  const right = document.getElementById('projRight');
-  const dotsWrap = document.getElementById('dotsWrap');
-
-  // Scrollable by drag, wheel handled below
-  // Arrow scroll amount
-  const pageGap = 20; // gap between cards (matches CSS)
-  const cardEl = row.querySelector('.project');
-  const updateLayout = () => {
-    // calculate page width = visible container width
-    const viewW = row.clientWidth;
-    // total pages = ceil(total scrollable width / viewW)
-    const totalW = row.scrollWidth;
-    const pages = Math.max(1, Math.ceil(totalW / viewW));
-    // rebuild dots
-    dotsWrap.innerHTML = '';
-    for (let i=0;i<pages;i++){
-      const d = document.createElement('button');
-      d.className = 'dot';
-      d.setAttribute('aria-label', 'Go to page ' + (i+1));
-      d.dataset.index = i;
-      d.addEventListener('click', (ev)=>{
-        // scroll to page i
-        const leftPos = Math.round(i * viewW);
-        row.scrollTo({ left: leftPos, behavior: 'smooth' });
-      });
-      dotsWrap.appendChild(d);
-    }
-    // activate first
-    updateActiveDot();
-  };
-
-  // Update Active dot based on current scroll
-  const updateActiveDot = () => {
-    const viewW = row.clientWidth;
-    const pages = dotsWrap.children.length;
-    if (pages === 0) return;
-    const center = row.scrollLeft + (viewW/2);
-    // page index = floor(center / viewW)
-    let idx = Math.floor(center / viewW);
-    if (idx < 0) idx = 0;
-    if (idx >= pages) idx = pages - 1;
-    Array.from(dotsWrap.children).forEach((d,i)=>{
-      d.classList.toggle('active', i === idx);
-    });
-  };
-
-  // initialize on load
-  window.addEventListener('load', updateLayout);
-  // update on resize
-  window.addEventListener('resize', () => { updateLayout(); });
-
-  // arrow behavior: move by view width
-  left.addEventListener('click', ()=> {
-    const viewW = row.clientWidth;
-    row.scrollBy({ left: -viewW, behavior: 'smooth' });
-  });
-  right.addEventListener('click', ()=> {
-    const viewW = row.clientWidth;
-    row.scrollBy({ left: viewW, behavior: 'smooth' });
-  });
-
-  // make mousewheel scroll horizontally when over the row
-  row.addEventListener('wheel', (e) => {
-    if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-      e.preventDefault();
-      row.scrollBy({ left: e.deltaY, behavior: 'auto' });
-    }
-  }, { passive: false });
-
-  // update active dot during scroll (throttle)
-  let scT;
-  row.addEventListener('scroll', ()=>{
-    if (scT) cancelAnimationFrame(scT);
-    scT = requestAnimationFrame(()=>{ updateActiveDot(); });
-  });
-
-  // keyboard support: left/right
-  row.addEventListener('keydown', (e)=>{
-    if (e.key === 'ArrowLeft') { row.scrollBy({ left: -row.clientWidth, behavior:'smooth' }); }
-    if (e.key === 'ArrowRight') { row.scrollBy({ left: row.clientWidth, behavior:'smooth' }); }
-  });
-
-  // initial set (if no project present, still show one dot)
-  updateLayout();
-})();
-
-/* ---------- SHOW / HIDE BACK TO TOP ---------- */
-(function(){
-  const b = document.getElementById('backTop');
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 400) b.classList.add('show'); else b.classList.remove('show');
-  });
-  b.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
-})();
-
-/* ---------- SMOOTH SCROLL FROM VIEW WORK BTN (extra) ---------- */
-document.getElementById('viewWorkBtn').addEventListener('click', (e)=>{
-  e.preventDefault();
-  document.querySelector('#projects').scrollIntoView({ behavior:'smooth', block:'start' });
-});
-
-/* ---------- small accessibility helper: focus outlines for keyboard users ---------- */
-(function(){
-  function handleFirstTab(e) {
-    if (e.key === 'Tab') {
-      document.documentElement.classList.add('user-is-tabbing');
-      window.removeEventListener('keydown', handleFirstTab);
-    }
-  }
-  window.addEventListener('keydown', handleFirstTab);
-})();
-</script>
+    <script src="port.js"></script>
 </body>
 </html>
