@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Elaine Domaycos — Portfolio</title>
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg: #f8f1e7;       /* beige base */
+    --muted: #6b6b6b;    /* muted text */
+    --accent: #d97706;   /* warm yellow/orange */
+    --accent-dark: #b45309;
+    --card: #ffffff;
+    --glass: rgba(255,255,255,0.6);
+    --shadow: 0 8px 30px rgba(15,15,15,0.08);
+    --glass-2: rgba(255,255,255,0.85);
+    --dot: #e9ded0;
+    --dot-active: #caa67a;
+  }
+
+  /* Reset & basics */
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family: "Poppins",system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: var(--bg);
+    color:#222;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    scroll-behavior:smooth;
+  }
+
+  a{ color:inherit; text-decoration:none }
+  img{ display:block; max-width:100%; }
+
+  /* NAV */
+  .nav {
+    position: fixed;
+    left:0; right:0; top:0;
+    height:72px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    padding: 0 28px;
+    z-index:999;
+    background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.6));
+    transform: translateY(0);
+    transition: transform .35s cubic-bezier(.2,.9,.25,1), box-shadow .25s ease, background .25s ease;
+    box-shadow: 0 6px 20px rgba(10,10,10,0.02);
+    backdrop-filter: blur(6px);
+  }
+  .nav.hidden { transform: translateY(-120%); }
+  .nav .brand { font-weight:700; font-size:1.1rem; color:var(--accent-dark); letter-spacing:0.6px; }
+  .nav .links { display:flex; gap:18px; align-items:center; }
+  .nav .links a { color:var(--muted); font-weight:500; padding:8px 10px; border-radius:8px; }
+  .nav .links a:hover { color:var(--accent-dark); background: rgba(0,0,0,0.02) }
+
+  .nav .cta { padding:8px 14px; background:var(--accent); color:white; border-radius:999px; font-weight:600; }
+  .nav .cta.secondary { background:transparent; color:var(--accent); border:2px solid var(--accent); padding:6px 12px; }
+
+  /* CONTAINER SIZING */
+  .wrap { max-width:1200px; margin:0 auto; width:100%; padding:0 20px; }
+
+  /* HERO / HOME */
+  .hero {
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    gap:36px;
+    padding-top:80px;
+    padding-bottom:40px;
+  }
+
+  .hero-left { flex:1; }
+  .headline {
+    font-size: clamp(40px, 7vw, 76px);
+    line-height:0.95;
+    font-weight:800;
+    margin:0 0 16px;
+  }
+  .headline .accent { color:var(--accent-dark); }
+
+  .sub {
+    color:var(--muted);
+    max-width:520px;
+    margin-bottom:24px;
+    font-weight:500;
+  }
+
+  .hero-cta { display:flex; gap:12px; align-items:center; }
+
+  .btn {
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    border-radius:999px;
+    padding:12px 18px;
+    font-weight:600;
+    cursor:pointer;
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .btn:active{ transform:translateY(1px) }
+  .btn.primary { background:var(--accent); color:white; box-shadow:0 8px 20px rgba(182,112,22,0.12);}
+  .btn.ghost { background:transparent; border:2px solid var(--accent); color:var(--accent); }
+
+  /* Image cluster (right) */
+  .hero-right { flex:1; display:flex; align-items:center; justify-content:center; position:relative; min-height:360px; }
+  .img-card {
+    width: 260px;
+    height: 340px;
+    border-radius: 22px;
+    overflow:hidden;
+    background: var(--card);
+    box-shadow: var(--shadow);
+    transform-origin:center;
+    transition: transform .45s cubic-bezier(.2,.9,.25,1), box-shadow .3s ease;
+  }
+  .img-card img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+  /* overlap/tilt */
+  .img-stack { position:relative; width:340px; height:360px; }
+  .img-stack .card-1{ position:absolute; top:14px; left:28px; transform: rotate(-6deg); z-index:10; }
+  .img-stack .card-2{ position:absolute; top:-6px; left:92px; transform: rotate(6deg); z-index:20; box-shadow: 0 18px 40px rgba(10,10,10,0.12); }
+  .img-stack .card-3{ position:absolute; top:110px; left:40px; width:180px; height:220px; transform: rotate(-3deg); z-index:5; opacity:0.95; }
+
+  .img-card:hover { transform: translateY(-10px) rotate(0deg); box-shadow: 0 22px 48px rgba(10,10,10,0.14); }
+
+  /* SECTION */
+  .section { padding:80px 0; }
+  .section-title {
+    font-size:1.75rem; font-weight:700; margin:0 0 22px;
+    opacity:0; transform: translateY(-16px); transition: all .6s cubic-bezier(.2,.9,.25,1);
+  }
+  .section-title.visible { opacity:1; transform: translateY(0); }
+
+  /* PROJECTS (horizontal scroll) */
+  .projects-wrap { position:relative; margin-bottom:18px; }
+  .projects-row {
+    display:flex; gap:20px; overflow-x:auto; padding:18px 8px; scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+  }
+  .projects-row::-webkit-scrollbar{ height:10px; }
+  .projects-row::-webkit-scrollbar-thumb{ background:linear-gradient(180deg,var(--accent),var(--accent-dark)); border-radius:999px; }
+
+  .project {
+    flex: 0 0 320px;
+    scroll-snap-align:start;
+    background: var(--card);
+    border-radius:20px;
+    box-shadow:var(--shadow);
+    overflow:hidden;
+    transform: translateY(16px);
+    opacity:0;
+    transition: transform .6s cubic-bezier(.2,.9,.25,1), opacity .6s ease;
+  }
+  .project.visible { transform: translateY(0); opacity:1; }
+
+  .project .thumb{ height:180px; background:#e9e2d8; display:block; }
+  .project .meta { padding:16px; }
+  .project h4 { margin:0 0 8px; font-size:1.05rem; color:var(--accent-dark); }
+  .project p { margin:0 0 12px; color:var(--muted); font-size:0.95rem; line-height:1.4; }
+  .project .project-actions { display:flex; gap:8px; align-items:center; }
+
+  .btn.gh {
+    background:transparent; border:1px solid #1113; color:var(--muted); padding:8px 12px; border-radius:10px; font-weight:600;
+  }
+  .btn.gh:hover { color:var(--accent-dark); border-color:var(--accent); }
+
+  /* Arrow scroll buttons */
+  .arrow {
+    position:absolute; top:50%; transform:translateY(-50%); width:40px; height:40px; border-radius:8px;
+    display:flex; align-items:center; justify-content:center; background:var(--glass-2); box-shadow:var(--shadow);
+    cursor:pointer; border:1px solid rgba(0,0,0,0.04);
+  }
+  .arrow.left { left:6px; }
+  .arrow.right { right:6px; }
+
+  /* Pagination dots */
+  .dots-wrap { display:flex; justify-content:center; gap:8px; margin-top:12px; }
+  .dot {
+    width:10px; height:10px; border-radius:50%; background:var(--dot); cursor:pointer; transition: transform .18s ease, background .18s ease;
+    border:1px solid rgba(0,0,0,0.03);
+  }
+  .dot.active { background:var(--dot-active); transform:scale(1.12); }
+
+  /* SKILLS & AWARDS grid */
+  .grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:18px; margin-top:16px; }
+  .skill { background:var(--card); padding:18px; border-radius:14px; box-shadow:var(--shadow); transform: translateY(16px); opacity:0; transition: all .6s ease; }
+  .skill.visible { transform: translateY(0); opacity:1; }
+  .skill h5 { margin:0 0 6px; color:var(--accent-dark); }
+
+  /* CONTACT */
+  .contact { max-width:680px; margin:0 auto; text-align:center; }
+
+  /* back to top */
+  .back-top {
+    position:fixed; right:18px; bottom:18px; width:52px; height:52px; border-radius:999px;
+    display:grid; place-items:center; background:var(--accent); color:white; box-shadow:0 12px 28px rgba(10,10,10,0.18);
+    cursor:pointer; transform:translateY(20px); opacity:0; transition:all .28s ease;
+    z-index:999;
+  }
+  .back-top.show { transform:translateY(0); opacity:1; }
+
+  /* Responsive */
+  @media (max-width:900px){
+    .hero { flex-direction:column-reverse; padding-top:100px }
+    .hero-right { margin-bottom:20px }
+    .img-stack{ width:280px; height:320px; }
+    .img-stack .card-1{ left:8px; }
+    .img-stack .card-2{ left:86px; }
+    .img-stack .card-3{ left:18px; top:160px; }
+    .projects-row { padding:14px 6px; }
+  }
+
+  @media (max-width:520px){
+    .nav { padding: 0 14px; height:64px; }
+    .nav .links { display:none; }
+    .headline{ text-align:center }
+    .hero-left{ text-align:center }
+    .project { flex: 0 0 260px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav" id="siteNav">
+  <div class="brand wrap">EDomaycos</div>
+  <nav class="links wrap" aria-label="Primary">
+    <a href="#home">Home</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#awards">Awards</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div style="display:flex; gap:10px; align-items:center;">
+    <a class="cta btn primary" href="#contact">Contact</a>
+  </div>
+</header>
+
+<!-- HERO / HOME -->
+<main>
+  <section id="home" class="hero wrap" aria-label="Home">
+    <div class="hero-left">
+      <h1 class="headline">Hello! I'm <span class="accent">Elaine Domaycos</span></h1>
+      <p class="sub">A digital creator and developer passionate about designing beautiful, functional, and interactive experiences that tell stories through technology.</p>
+
+      <div class="hero-cta">
+        <a class="btn primary" href="#projects" id="viewWorkBtn">View My Work</a>
+        <a class="btn ghost" href="Elaine-Domaycos-Resume.pdf" download>Download CV</a>
+      </div>
+    </div>
+
+    <div class="hero-right" aria-hidden="true">
+      <!-- overlapping image placeholders -->
+      <div class="img-stack" role="presentation">
+        <div class="img-card card-1" title="placeholder">
+          <img src="https://via.placeholder.com/520x680?text=Project+Preview+1" alt="placeholder 1">
+        </div>
+        <div class="img-card card-2" title="placeholder">
+          <img src="https://via.placeholder.com/520x680?text=Project+Preview+2" alt="placeholder 2">
+        </div>
+        <div class="img-card card-3" title="badge small" style="width:180px;height:220px;border-radius:18px;">
+          <img src="https://via.placeholder.com/360x460?text=Thumb" alt="thumb">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="section wrap">
+    <h2 class="section-title">Featured Projects</h2>
+
+    <div class="projects-wrap" id="projectsWrap">
+      <div class="arrow left" id="projLeft" aria-hidden="true">◀</div>
+      <div class="arrow right" id="projRight" aria-hidden="true">▶</div>
+
+      <div class="projects-row" id="projectsRow" tabindex="0" aria-label="Project carousel">
+        <!-- Project cards -->
+        <article class="project" data-animate>
+          <div class="thumb"><img src="https://via.placeholder.com/640x360?text=Project+1" alt="project 1" style="width:100%;height:100%;object-fit:cover;"></div>
+          <div class="meta">
+            <h4>Project One</h4>
+            <p>A modern portfolio concept using warm minimalism and micro-interactions.</p>
+            <div class="project-actions">
+              <a class="btn gh" href="#" target="_blank" rel="noopener">View on GitHub</a>
+              <a class="btn" href="#" style="background:transparent;color:var(--accent-dark);border-radius:10px;padding:8px 10px;border:1px solid rgba(0,0,0,0.06);">Live demo</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project" data-animate>
+          <div class="thumb"><img src="https://via.placeholder.com/640x360?text=Project+2" alt="project 2" style="width:100%;height:100%;object-fit:cover;"></div>
+          <div class="meta">
+            <h4>Project Two</h4>
+            <p>Interactive component library and design system for rapid prototyping.</p>
+            <div class="project-actions">
+              <a class="btn gh" href="#" target="_blank" rel="noopener">View on GitHub</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project" data-animate>
+          <div class="thumb"><img src="https://via.placeholder.com/640x360?text=Project+3" alt="project 3" style="width:100%;height:100%;object-fit:cover;"></div>
+          <div class="meta">
+            <h4>Project Three</h4>
+            <p>Gamified UI concept with motion-driven storytelling and creative visuals.</p>
+            <div class="project-actions">
+              <a class="btn gh" href="#" target="_blank" rel="noopener">View on GitHub</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project" data-animate>
+          <div class="thumb"><img src="https://via.placeholder.com/640x360?text=Project+4" alt="project 4" style="width:100%;height:100%;object-fit:cover;"></div>
+          <div class="meta">
+            <h4>Project Four</h4>
+            <p>Experimental layouts and small product experiences for digital storytelling.</p>
+            <div class="project-actions">
+              <a class="btn gh" href="#" target="_blank" rel="noopener">View on GitHub</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project" data-animate>
+          <div class="thumb"><img src="https://via.placeholder.com/640x360?text=Project+5" alt="project 5" style="width:100%;height:100%;object-fit:cover;"></div>
+          <div class="meta">
+            <h4>Project Five</h4>
+            <p>Small experimental app exploring motion-first interfaces.</p>
+            <div class="project-actions">
+              <a class="btn gh" href="#" target="_blank" rel="noopener">View on GitHub</a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- pagination dots -->
+      <div class="dots-wrap" id="dotsWrap" aria-hidden="false"></div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="section wrap">
+    <h2 class="section-title">Skills</h2>
+    <div class="grid">
+      <div class="skill" data-animate><h5>UI / UX Design</h5><p>Design systems, wireframes, prototypes, usability-driven interfaces.</p></div>
+      <div class="skill" data-animate><h5>Front-end Dev</h5><p>HTML, CSS, JavaScript — responsive, accessible, and performant websites.</p></div>
+      <div class="skill" data-animate><h5>Graphic Design</h5><p>Branding, illustration, and visual composition for digital products.</p></div>
+      <div class="skill" data-animate><h5>Interaction Design</h5><p>Micro-interactions, motion design, and delightful details.</p></div>
+    </div>
+  </section>
+
+  <!-- AWARDS -->
+  <section id="awards" class="section wrap" >
+    <h2 class="section-title">Awards & Recognition</h2>
+    <div class="grid">
+      <div class="skill" data-animate><h5>Startup Pitch — 1st Place</h5><p>BatStateU — Presented a food-tech concept that won 1st place.</p></div>
+      <div class="skill" data-animate><h5>Best UI Design</h5><p>Tech Expo 2023 — Recognized for clean, impactful UI solutions.</p></div>
+      <div class="skill" data-animate><h5>Digital Art Award</h5><p>Excellence in creative applications of digital art and UX.</p></div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section wrap">
+    <h2 class="section-title">Let's Connect</h2>
+    <div class="contact">
+      <p style="color:var(--muted); margin-bottom:18px;">Have a project in mind or want to collaborate? Send a message or email me.</p>
+      <a class="btn primary" href="mailto:elainedomaycos@gmail.com">Send Email</a>
+      <div style="margin-top:18px; color:var(--muted); font-size:0.95rem;">Or find projects on GitHub — links are on each project card.</div>
+    </div>
+  </section>
+</main>
+
+<!-- BACK TO TOP -->
+<button class="back-top" id="backTop" aria-label="Back to top" title="Back to top">↑</button>
+
+<script>
+/* ---------- NAV HIDE ON SCROLL ---------- */
+(function(){
+  const nav = document.getElementById('siteNav');
+  let lastY = window.scrollY;
+  let ticking = false;
+
+  function onScroll(){
+    const y = window.scrollY;
+    if (y > lastY && y > 80) { // scrolling down
+      nav.classList.add('hidden');
+    } else {
+      nav.classList.remove('hidden');
+    }
+    lastY = y;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(()=>{ onScroll(); ticking = false; });
+      ticking = true;
+    }
+  });
+})();
+
+/* ---------- INTERSECTION OBSERVER FOR ANIMATIONS ---------- */
+(function(){
+  const opts = { root: null, rootMargin: '0px', threshold: 0.14 };
+  const obs = new IntersectionObserver((entries, o) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        o.unobserve(e.target);
+      }
+    });
+  }, opts);
+
+  // titles (fade from top)
+  document.querySelectorAll('.section-title').forEach(el => obs.observe(el));
+  // cards/items (fade up)
+  document.querySelectorAll('[data-animate]').forEach(el => obs.observe(el));
+})();
+
+/* ---------- PROJECTS HORIZONTAL SCROLL + PAGINATION ---------- */
+(function(){
+  const row = document.getElementById('projectsRow');
+  const left = document.getElementById('projLeft');
+  const right = document.getElementById('projRight');
+  const dotsWrap = document.getElementById('dotsWrap');
+
+  // Scrollable by drag, wheel handled below
+  // Arrow scroll amount
+  const pageGap = 20; // gap between cards (matches CSS)
+  const cardEl = row.querySelector('.project');
+  const updateLayout = () => {
+    // calculate page width = visible container width
+    const viewW = row.clientWidth;
+    // total pages = ceil(total scrollable width / viewW)
+    const totalW = row.scrollWidth;
+    const pages = Math.max(1, Math.ceil(totalW / viewW));
+    // rebuild dots
+    dotsWrap.innerHTML = '';
+    for (let i=0;i<pages;i++){
+      const d = document.createElement('button');
+      d.className = 'dot';
+      d.setAttribute('aria-label', 'Go to page ' + (i+1));
+      d.dataset.index = i;
+      d.addEventListener('click', (ev)=>{
+        // scroll to page i
+        const leftPos = Math.round(i * viewW);
+        row.scrollTo({ left: leftPos, behavior: 'smooth' });
+      });
+      dotsWrap.appendChild(d);
+    }
+    // activate first
+    updateActiveDot();
+  };
+
+  // Update Active dot based on current scroll
+  const updateActiveDot = () => {
+    const viewW = row.clientWidth;
+    const pages = dotsWrap.children.length;
+    if (pages === 0) return;
+    const center = row.scrollLeft + (viewW/2);
+    // page index = floor(center / viewW)
+    let idx = Math.floor(center / viewW);
+    if (idx < 0) idx = 0;
+    if (idx >= pages) idx = pages - 1;
+    Array.from(dotsWrap.children).forEach((d,i)=>{
+      d.classList.toggle('active', i === idx);
+    });
+  };
+
+  // initialize on load
+  window.addEventListener('load', updateLayout);
+  // update on resize
+  window.addEventListener('resize', () => { updateLayout(); });
+
+  // arrow behavior: move by view width
+  left.addEventListener('click', ()=> {
+    const viewW = row.clientWidth;
+    row.scrollBy({ left: -viewW, behavior: 'smooth' });
+  });
+  right.addEventListener('click', ()=> {
+    const viewW = row.clientWidth;
+    row.scrollBy({ left: viewW, behavior: 'smooth' });
+  });
+
+  // make mousewheel scroll horizontally when over the row
+  row.addEventListener('wheel', (e) => {
+    if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+      e.preventDefault();
+      row.scrollBy({ left: e.deltaY, behavior: 'auto' });
+    }
+  }, { passive: false });
+
+  // update active dot during scroll (throttle)
+  let scT;
+  row.addEventListener('scroll', ()=>{
+    if (scT) cancelAnimationFrame(scT);
+    scT = requestAnimationFrame(()=>{ updateActiveDot(); });
+  });
+
+  // keyboard support: left/right
+  row.addEventListener('keydown', (e)=>{
+    if (e.key === 'ArrowLeft') { row.scrollBy({ left: -row.clientWidth, behavior:'smooth' }); }
+    if (e.key === 'ArrowRight') { row.scrollBy({ left: row.clientWidth, behavior:'smooth' }); }
+  });
+
+  // initial set (if no project present, still show one dot)
+  updateLayout();
+})();
+
+/* ---------- SHOW / HIDE BACK TO TOP ---------- */
+(function(){
+  const b = document.getElementById('backTop');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) b.classList.add('show'); else b.classList.remove('show');
+  });
+  b.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
+})();
+
+/* ---------- SMOOTH SCROLL FROM VIEW WORK BTN (extra) ---------- */
+document.getElementById('viewWorkBtn').addEventListener('click', (e)=>{
+  e.preventDefault();
+  document.querySelector('#projects').scrollIntoView({ behavior:'smooth', block:'start' });
+});
+
+/* ---------- small accessibility helper: focus outlines for keyboard users ---------- */
+(function(){
+  function handleFirstTab(e) {
+    if (e.key === 'Tab') {
+      document.documentElement.classList.add('user-is-tabbing');
+      window.removeEventListener('keydown', handleFirstTab);
+    }
+  }
+  window.addEventListener('keydown', handleFirstTab);
+})();
+</script>
+</body>
+</html>
