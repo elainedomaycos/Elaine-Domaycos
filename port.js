@@ -196,14 +196,14 @@
             });
         }
 
-        // Auto-advance achievements
+        // Auto-advance achievements every 8 seconds
         setInterval(() => {
             if (achievementItems.length > 0) {
                 achievementItems[currentAchievement].classList.remove("active");
                 currentAchievement = (currentAchievement + 1) % achievementItems.length;
                 achievementItems[currentAchievement].classList.add("active");
             }
-        }, 5000);
+        }, 8000);
 
         // Contact Form Handler
         const sendBtn = document.querySelector('.send-btn');
