@@ -187,23 +187,33 @@
         const achievementBtn = document.querySelector(".carousel-btn");
         const achievementItems = document.querySelectorAll(".carousel-item");
         let currentAchievement = 0;
+        let achievementTimer;
 
-        if (achievementBtn) {
-            achievementBtn.addEventListener("click", () => {
-                achievementItems[currentAchievement].classList.remove("active");
-                currentAchievement = (currentAchievement + 1) % achievementItems.length;
-                achievementItems[currentAchievement].classList.add("active");
-            });
-        }
-
-        // Auto-advance achievements every 8 seconds
-        setInterval(() => {
+        // Function to advance to next achievement
+        function nextAchievement() {
             if (achievementItems.length > 0) {
                 achievementItems[currentAchievement].classList.remove("active");
                 currentAchievement = (currentAchievement + 1) % achievementItems.length;
                 achievementItems[currentAchievement].classList.add("active");
             }
-        }, 8000);
+        }
+
+        // Function to reset and restart timer
+        function resetAchievementTimer() {
+            clearInterval(achievementTimer);
+            achievementTimer = setInterval(nextAchievement, 8000);
+        }
+
+        // Button click handler - advance and reset timer
+        if (achievementBtn) {
+            achievementBtn.addEventListener("click", () => {
+                nextAchievement();
+                resetAchievementTimer(); // Reset timer so next change is 8 seconds from now
+            });
+        }
+
+        // Start auto-advance timer
+        resetAchievementTimer();
 
         // Contact Form Handler
         const sendBtn = document.querySelector('.send-btn');
