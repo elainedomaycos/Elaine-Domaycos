@@ -32,7 +32,32 @@
                     <a href="#contact" class="contact-btn">CONTACT ME</a>
                 </div>
             </div>
+
         </nav>
+        <!-- Mobile Slide Menu moved outside nav-strip for proper overlay -->
+        <div class="mobile-slide-menu">
+                <button class="mobile-close" aria-label="Close menu">&times;</button>
+                <ul class="mobile-nav-links">
+                    <li><a href="#home" class="nav-link">HOME</a></li>
+                    <li><a href="#projects" class="nav-link">PROJECTS</a></li>
+                    <li><a href="#education" class="nav-link">EDUCATION</a></li>
+                    <li><a href="#achievements" class="nav-link">NOTABLE ACHIEVEMENTS</a></li>
+                </ul>
+                <div class="mobile-socials">
+                    <a href="https://www.linkedin.com/in/ma-kassandra-elaine-domaycos/" target="_blank" class="social-icon linkedin" title="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://github.com/elainedomaycos" target="_blank" class="social-icon github" title="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://www.facebook.com/elaine.domaycos.1" target="_blank" class="social-icon facebook" title="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://www.instagram.com/mariadionysiaa/" target="_blank" class="social-icon instagram" title="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
 
         <!-- Home Section -->
         <section id="home" class="home-section">
@@ -107,10 +132,17 @@
             </div>
 
             <div class="carousel-wrapper">
-                <div class="carousel-nav prev" onclick="moveCarousel(-1)">
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
-                    </svg>
+                <div class="carousel-arrows">
+                    <div class="carousel-nav prev" onclick="moveCarousel(-1)">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+                        </svg>
+                    </div>
+                    <div class="carousel-nav next" onclick="moveCarousel(1)">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z" />
+                        </svg>
+                    </div>
                 </div>
 
                 <div class="carousel-container">
@@ -222,6 +254,16 @@
                                 <h3 class="project-title">The Easy Lunch</h3>
                                 <p class="project-description">Ordering website for food business.</p>
                                 <a href="https://easy-lunch.vercel.app/" class="github-btn" target="_blank">View Project</a>
+                            </div>
+                        </div>
+
+                        <div class="project-card animate-on-scroll">
+                            <span class="project-category">Business Analytics</span>
+                            <img src="lookers.png" alt="Project 11" class="project-image">
+                            <div class="project-overlay">
+                                <h3 class="project-title">Google Lookers - NutriBlend</h3>
+                                <p class="project-description">Ordering website for food business.</p>
+                                <a href="https://lookerstudio.google.com/reporting/6ef1d543-02ee-4ecb-ad37-077da8a626e8" class="github-btn" target="_blank">View Project</a>
                             </div>
                         </div>
 

@@ -106,13 +106,43 @@
         // Mobile menu toggle
         const mobileToggle = document.querySelector('.mobile-toggle');
         const navLinksContainer = document.querySelector('.nav-links');
+        const mobileSlideMenu = document.querySelector('.mobile-slide-menu');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-links .nav-link');
+    const mobileCloseBtn = document.querySelector('.mobile-close');
+
+        function closeMobileMenu() {
+            mobileSlideMenu.classList.remove('active');
+            mobileToggle.textContent = '☰';
+        }
 
         if (mobileToggle) {
             mobileToggle.addEventListener('click', () => {
-                navLinksContainer.classList.toggle('active');
-                mobileToggle.textContent = navLinksContainer.classList.contains('active') ? '✕' : '☰';
+                const isActive = mobileSlideMenu.classList.toggle('active');
+                mobileToggle.textContent = isActive ? '✕' : '☰';
             });
         }
+
+        // Close menu on nav link click (mobile)
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                closeMobileMenu();
+            });
+        });
+
+        // Close menu on X button
+        if (mobileCloseBtn) {
+            mobileCloseBtn.addEventListener('click', closeMobileMenu);
+        }
+        // Optional: close menu on outside click
+        document.addEventListener('click', (e) => {
+            if (
+                mobileSlideMenu.classList.contains('active') &&
+                !mobileSlideMenu.contains(e.target) &&
+                e.target !== mobileToggle
+            ) {
+                closeMobileMenu();
+            }
+        });
 
         // Projects Carousel - FIXED
         const track = document.getElementById('carouselTrack');
