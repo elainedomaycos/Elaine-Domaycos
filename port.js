@@ -152,28 +152,46 @@
         const nextBtn = document.querySelector('.carousel-nav.next');
         
         let currentPage = 0;
-        const cardsPerPage = 3;
-        const totalPages = Math.ceil(cards.length / cardsPerPage);
+        function getCardsPerPage() {
+            return window.innerWidth <= 480 ? 1 : 3;
+        }
+        function getTotalPages() {
+            return Math.ceil(cards.length / getCardsPerPage());
+        }
 
         function updateCarousel() {
+            const cardsPerPage = getCardsPerPage();
+            const totalPages = getTotalPages();
+            if (currentPage >= totalPages) currentPage = totalPages - 1;
+            if (currentPage < 0) currentPage = 0;
             const cardWidth = cards[0].offsetWidth;
             const gap = 20;
             const offset = currentPage * (cardWidth + gap) * cardsPerPage;
-            
             track.style.transform = `translateX(-${offset}px)`;
-            
-            // Update dots
             updateDots();
-            
-            // Update button states
             prevBtn.classList.toggle('disabled', currentPage === 0);
             nextBtn.classList.toggle('disabled', currentPage >= totalPages - 1);
         }
 
         function updateDots() {
+            const totalPages = getTotalPages();
             dotsContainer.innerHTML = '';
-            
-            for (let i = 0; i < totalPages; i++) {
+            const isMobile = window.innerWidth <= 480;
+            let start = 0;
+            let end = totalPages;
+            if (isMobile && totalPages > 3) {
+                if (currentPage <= 1) {
+                    start = 0;
+                    end = 3;
+                } else if (currentPage >= totalPages - 2) {
+                    start = totalPages - 3;
+                    end = totalPages;
+                } else {
+                    start = currentPage - 1;
+                    end = currentPage + 2;
+                }
+            }
+            for (let i = start; i < end; i++) {
                 const dot = document.createElement('span');
                 dot.classList.add('dot');
                 if (i === currentPage) dot.classList.add('active');
@@ -186,11 +204,10 @@
         }
 
         function moveCarousel(direction) {
+            const totalPages = getTotalPages();
             currentPage += direction;
-            
             if (currentPage < 0) currentPage = 0;
             if (currentPage >= totalPages) currentPage = totalPages - 1;
-            
             updateCarousel();
         }
 

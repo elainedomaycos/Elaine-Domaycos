@@ -691,7 +691,7 @@
             flex-direction: column;
             justify-content: flex-end;
             padding: 20px;
-            background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.8) 100%);
+            background: linear-gradient(180deg, rgba(0,0,0,0.3) 30%, rgba(0,0,0,0.92) 100%);
             color: #fff;
             opacity: 0;
             transition: opacity 0.4s ease;
@@ -1162,10 +1162,11 @@
         /* Tablet - 481px to 900px */
         @media (max-width: 900px) {
             .home-container {
-                flex-direction: column;
-                text-align: center;
-                padding-top: 140px;
-            }
+                    flex-direction: column;
+                    text-align: center;
+                    /* reduce top padding on tablet so hero sits closer to navbar */
+                    padding-top: 60px;
+                }
             .home-text { align-items: center; }
             .portfolio-text { font-size: 4.5rem; }
             .download-btn {
@@ -1234,6 +1235,8 @@
                 align-items: center;
                 text-align: center;
                 gap: 30px;
+                /* remove extra top spacing on small screens */
+                padding-top: 75px;
             }
             
             /* Polaroid photo */
@@ -1304,12 +1307,16 @@
                 }
                 .download-btn {
                     position: absolute;
-                    right: -5px;
-                    font-size: 0.7rem;
-                    padding: 4px 10px;
-                    border-radius: 16px;
-                    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
-                    transform: rotate(-8deg);
+                    right: -25px;
+                    /* move the sticker down to avoid blocking "PORTFOLIO" */
+                    top: 45px;
+                    font-size: 0.75rem;
+                    padding: 8px 16px;
+                    line-height: 1;
+                    height: fit-content;
+                    border-radius: 30px;
+                    box-shadow: 0 3px 0 #0f0d0e;
+                    transform: rotate(-7deg);
                     background: #fff;
                     border: 2px solid #0f0d0e;
                     color: #0f0d0e;
@@ -1393,7 +1400,7 @@
             /* Always show project info on mobile */
             .project-overlay {
                 opacity: 1;
-                background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.85) 100%);
+                background: linear-gradient(180deg, rgba(0,0,0,0.3) 30%, rgba(0,0,0,0.92) 100%);
                 padding: 20px;
             }
             
