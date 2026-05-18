@@ -1,0 +1,231 @@
+{
+  "profile": {
+    "name": "Elaine Domaycos",
+    "title": "UI/UX Designer",
+    "year": "2025",
+    "bio": "Creative designer passionate about user-centered design",
+    "profileImage": "ARA_2931.jpg",
+    "cvFile": "Resume of Elaine Domaycos (1).pdf"
+  },
+  "social": {
+    "linkedin": "https://www.linkedin.com/in/ma-kassandra-elaine-domaycos/",
+    "github": "https://github.com/elainedomaycos",
+    "facebook": "https://www.facebook.com/elaine.domaycos.1",
+    "instagram": "https://www.instagram.com/mariadionysiaa/"
+  },
+  "projects": [
+    {
+      "id": 1,
+      "title": "Conexus",
+      "category": "WEBSITE",
+      "description": "A portfolio website developed for a business to showcase services and completed works.",
+      "image": "conexus.png",
+      "link": "https://conexus-cnx.vercel.app/"
+    },
+    {
+      "id": 2,
+      "title": "Dive In Mabini",
+      "category": "WEBSITE",
+      "description": "A tourism website promoting attractions, diving spots, and local experiences in Mabini, Batangas.",
+      "image": "p1.png",
+      "link": "https://mabini-tourism-pearl.vercel.app/#hero-section"
+    },
+    {
+      "id": 3,
+      "title": "The Easy Lunch",
+      "category": "E-COMMERCE WEBSITE",
+      "description": "A food ordering website with a clean interface for browsing meals and placing orders online.",
+      "image": "p11.png",
+      "link": "https://easy-lunch.vercel.app/"
+    },
+    {
+      "id": 4,
+      "title": "Google Lookers - NutriBlend",
+      "category": "BUSINESS ANALYTICS",
+      "description": "A school business analytics activity built in Google Looker Studio to visualize and analyze data insights.",
+      "image": "lookers.png",
+      "link": "https://lookerstudio.google.com/reporting/6ef1d543-02ee-4ecb-ad37-077da8a626e8"
+    },
+    {
+      "id": 5,
+      "title": "STOCK OUT",
+      "category": "UI/UX DESIGN",
+      "description": "An internship startup project for e-commerce where we focused on UI/UX design and user flow improvements.",
+      "image": "p2.png",
+      "link": "https://www.figma.com/proto/mrEdOC2c6W5NZ2mj3k0knB/AIMS-x-STOCKOUT?node-id=167-8770&t=qAqi90xWsE59fgtk-1&scaling=scale-down-width&content-scaling=fixed&page-id=1%3A3&starting-point-node-id=143%3A7736&show-proto-sidebar=1"
+    },
+    {
+      "id": 6,
+      "title": "Universal Steel",
+      "category": "UI/UX DESIGN",
+      "description": "A UI/UX design project for the website of Universal Steel, a manufacturing company.",
+      "image": "p3.png",
+      "link": "https://www.figma.com/proto/v90UQZ0pO6iPATBZETV19Q/DevFlex-UI-UX-Design?page-id=0%3A3&node-id=289-1731&viewport=-738%2C165%2C0.89&t=9qDx7QimDOyKyctl-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=219%3A643&fbclid=IwY2xjawN4z9dleHRuA2FlbQIxMABicmlkETFiSVZaR2oxZE4zcXY4ZUZ3c3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHvmyfXE8Ml4dikP_-2ulTf4S27LLzC-XnNN19Sc4YCpZeV6BOsUSwBhflBm5_aem_8ATniAuX86b3DThBdzBafQ"
+    },
+    {
+      "id": 7,
+      "title": "GulWay",
+      "category": "UI/UX DESIGN",
+      "description": "A startup UI/UX concept project focused on intuitive booking and mobility experience design.",
+      "image": "p4.png",
+      "link": "https://www.figma.com/proto/nhBWFX1ge4IWZySKN0P5tg/Projects?node-id=1-2&t=96diLTrpvYColAgm-0&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=1%3A2&show-proto-sidebar=1"
+    },
+    {
+      "id": 8,
+      "title": "Vista Mabini",
+      "category": "SCHOOL PROJECT",
+      "description": "A resort booking system that uses Java to handle interactive booking and user experience features.",
+      "image": "p7.png",
+      "link": "https://github.com/elainedomaycos/VistaMabini"
+    },
+    {
+      "id": 9,
+      "title": "Mabini Batangas",
+      "category": "SCHOOL PROJECT",
+      "description": "An eco-tourism project for Mabini, Batangas developed during the Learning Express Program 2025.",
+      "image": "p10.png",
+      "link": "https://domaycoselaine.wixsite.com/mabini-batangas-1"
+    },
+    {
+      "id": 10,
+      "title": "JMB Industries Co",
+      "category": "FREELANCE PROJECT",
+      "description": "A freelance company website built to present services, business profile, and contact information.",
+      "image": "p8.png",
+      "link": "https://jmbindustriesco.wixstudio.com/jmbindustries?fbclid=IwZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQPNDM3NjI2MzE2OTczNzg4AAEe0O72Gl-Z0_7Hf0ysFomEyG5Qo4dKPmgb-PbQmWxs0BW36dJ4-OVJYwzmOG8_aem_CqeH6UhxL8pagy9uBescFw"
+    },
+    {
+      "id": 11,
+      "title": "San Jose Elementary School",
+      "category": "FREELANCE PROJECT",
+      "description": "A freelance school website created as a thesis demo for San Jose Elementary School.",
+      "image": "p9.png",
+      "link": "https://sanjosees107461.wixsite.com/sanjose-es?fbclid=IwZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQPNDM3NjI2MzE2OTczNzg4AAEeGNrsg4ZkZ5p5HUEBNT0E3J2jwcSMhT1mb4xr9Kh9X_UtqMt7IkgHKIUTBzo_aem_szEvkElGzZNKOE9bV_WbGw"
+    },
+    {
+      "id": 12,
+      "title": "School Website",
+      "category": "WEBSITE",
+      "description": "A Grade 12 thesis project (2023) focused on building a complete school website experience.",
+      "image": "P5.png",
+      "link": "https://anselmosandoval.github.io/index.HTML"
+    },
+    {
+      "id": 13,
+      "title": "La Pizzaria",
+      "category": "WEBSITE",
+      "description": "A Grade 12 project (2023) for a pizza shop website with menu presentation and ordering flow.",
+      "image": "p6.png",
+      "link": "https://elainedomaycos.github.io/LaPizzaria/"
+    }
+  ],
+  "education": [
+    {
+      "id": 1,
+      "school": "Batangas State University",
+      "degree": "Bachelor of Science in Information Technology",
+      "year": "2023 – Present",
+      "description": "Dean's Lister",
+      "image": "bsu logo.png"
+    },
+    {
+      "id": 2,
+      "school": "Mabini College",
+      "degree": "Senior High School – ICT Strand",
+      "year": "2021 – 2023",
+      "description": "GWA: 94",
+      "image": "anselmo.png"
+    }
+  ],
+  "achievements": [
+    {
+      "id": 1,
+      "title": "GulWay – 1st Place (Champion)",
+      "description": "Pitched 'GulWay,' a startup app project that won 1st place in a university-level pitching competition.",
+      "image": "na.jpg"
+    },
+    {
+      "id": 2,
+      "title": "1st Naga City Mayoral Hackathon Finalist",
+      "description": "Part of the Top 5 finalist in the 1st Naga City Mayoral Hackathon held in Naga City",
+      "image": "naga.jpeg"
+    },
+    {
+      "id": 3,
+      "title": "Philippine Innovation Conference 2025",
+      "description": "Participated in the Philippine Innovation Conference (PIC) 2025 held in University of Batangas",
+      "image": "pic.jpg"
+    },
+    {
+      "id": 4,
+      "title": "Best Innovative Research",
+      "description": "Hailed as Best Innovative Research in the 2023 Research Expo",
+      "image": "na2.jpg"
+    },
+    {
+      "id": 5,
+      "title": "CICS Mabini Student Council President A.Y 2025-2026",
+      "description": "Oversaw student activities, academic initiatives, and council operations.",
+      "image": "na3.jpg"
+    },
+    {
+      "id": 6,
+      "title": "Supreme Student Council (SSC) Mabini – Chairperson for Publication",
+      "description": "Managed publication materials and official announcements for the SSC Mabini page.",
+      "image": "ssc.jfif"
+    },
+    {
+      "id": 7,
+      "title": "Tech Team Member (2023–2025)",
+      "description": "Produced digital publication materials for council social media using Photoshop and Canva and hosted events.",
+      "image": "tech.JPG"
+    },
+    {
+      "id": 8,
+      "title": "Sandbox Co-Head (2025–2026)",
+      "description": "Member of the campus IT/Coders Guild focused on tech innovation and collaborative learning.",
+      "image": "sandbox.JPG"
+    },
+    {
+      "id": 9,
+      "title": "Dean's Lister",
+      "description": "Recognized for outstanding academic performance from 1st year up to present.",
+      "image": "deans.jpg"
+    },
+    {
+      "id": 10,
+      "title": "LeX 2025 Delegate",
+      "description": "Participated in the BatState-U × Singapore Polytechnic collaboration program.",
+      "image": "lex.jfif"
+    },
+    {
+      "id": 11,
+      "title": "TIP Resource Speaker (2025)",
+      "description": "Delivered a talk on Design Thinking.",
+      "image": "speaker.jfif"
+    },
+    {
+      "id": 12,
+      "title": "DevCon 2024 Participant",
+      "description": "Joined the national developer convention at UB Lipa.",
+      "image": "devcon.jfif"
+    },
+    {
+      "id": 13,
+      "title": "WOSAS & WOCEE Participant",
+      "description": "Attended the World of Safety and Security Expo and the World of Consumer Electronics Expo at the SMX Convention Center, MOA.",
+      "image": "wosas.jfif"
+    }
+  ],
+  "skills": [
+    "Figma",
+    "Photoshop",
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "Python",
+    "Java",
+    "MySQL"
+  ]
+}
+
