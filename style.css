@@ -1,9 +1,4 @@
-@media (min-width: 481px) {
-    /* Hide the duplicate right arrow in desktop view */
-    .carousel-arrows .next {
-        display: none;
-    }
-}
+/* Ensure both carousel arrows are visible by default; duplicates are removed in markup. */
 /* Only hide .carousel-arrows in mobile view, not desktop */
 @media (max-width: 480px) {
     .carousel-arrows {
@@ -628,10 +623,32 @@
             margin-bottom: 30px;
         }
 
+        /* Position carousel arrows outside the scrollable track so they remain visible
+           when the track is translated. The wrapper is relative so arrows can be
+           absolutely positioned across the full width. */
+        .carousel-arrows {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            transform: translateY(-50%);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 12px;
+            pointer-events: none; /* let children enable pointer events */
+            z-index: 50;
+        }
+
+        .carousel-arrows .carousel-nav {
+            pointer-events: auto;
+        }
+
         .carousel-container {
             width: 100%;
             max-width: 1200px;
-            overflow: hidden;
+            /* Allow shadows from project cards to be visible outside the container */
+            overflow: visible;
         }
 
         .carousel-track {
