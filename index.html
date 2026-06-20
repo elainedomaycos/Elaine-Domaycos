@@ -9,11 +9,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="supabase-config.js"></script>
-    <script src="supabase-client.js"></script>
-    <script src="cms-loader.js"></script>
-
 </head>
 <body>
     <!-- Loading Screen -->
@@ -507,12 +502,14 @@
                     </div>
                 </div>
 
-                <div class="contact-form animate-right">
+                <form id="contactForm" class="contact-form animate-right" action="https://formsubmit.co/edomaycos@gmail.com" method="POST">
+                    <input type="hidden" name="_subject" value="New Portfolio Contact Message">
+                    <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none">
                     <input type="text" name="name" placeholder="Your Name" required>
                     <input type="email" name="email" placeholder="Your Email" required>
                     <textarea name="message" rows="4" placeholder="Your Message" required></textarea>
-                    <button type="button" class="send-btn">Send Message</button>
-                </div>
+                    <button type="submit" class="send-btn">Send Message</button>
+                </form>
             </div>
 
             <p class="footer-credit">© 2025 Elaine Domaycos. All rights reserved.</p>

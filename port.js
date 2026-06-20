@@ -1,31 +1,36 @@
- // Loading Screen Animation
+ // Loading Screen Animation (reduced forced delay)
         const loadingText = document.getElementById('loading-text');
         const loadingScreen = document.getElementById('loading-screen');
         const mainContent = document.getElementById('main-content');
 
         let dotCount = 0;
-        const maxDots = 3;
+        const maxDots = 2;
+        const minForcedDelay = 450;
+        const loadingStart = Date.now();
 
         const typewriterInterval = setInterval(() => {
             const dotsElement = loadingText.querySelector('.dots');
-            
-            if (dotCount <= maxDots) {
-                dotsElement.textContent = '.'.repeat(dotCount);
-                dotCount++;
-            } else {
+            dotsElement.textContent = '.'.repeat(dotCount);
+            dotCount = (dotCount + 1) % (maxDots + 1);
+        }, 180);
+
+        function revealMainContent() {
+            const elapsed = Date.now() - loadingStart;
+            const remaining = Math.max(0, minForcedDelay - elapsed);
+
+            setTimeout(() => {
                 clearInterval(typewriterInterval);
-                
+                loadingScreen.classList.add('fade-out');
+
                 setTimeout(() => {
-                    loadingScreen.classList.add('fade-out');
-                    
-                    setTimeout(() => {
-                        loadingScreen.style.display = 'none';
-                        mainContent.classList.remove('hidden');
-                        mainContent.classList.add('visible');
-                    }, 500);
-                }, 500);
-            }
-        }, 400);
+                    loadingScreen.style.display = 'none';
+                    mainContent.classList.remove('hidden');
+                    mainContent.classList.add('visible');
+                }, 180);
+            }, remaining);
+        }
+
+        revealMainContent();
 
         // Smooth Scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -262,24 +267,4 @@
         // Start auto-advance timer
         resetAchievementTimer();
 
-        // Contact Form Handler
-        const sendBtn = document.querySelector('.send-btn');
-        if (sendBtn) {
-            sendBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                
-                const nameInput = document.querySelector('input[name="name"]');
-                const emailInput = document.querySelector('input[name="email"]');
-                const messageInput = document.querySelector('textarea[name="message"]');
-                
-                if (nameInput.value && emailInput.value && messageInput.value) {
-                    alert(`Thank you, ${nameInput.value}! Your message has been received. I'll get back to you at ${emailInput.value} soon!`);
-                    
-                    nameInput.value = '';
-                    emailInput.value = '';
-                    messageInput.value = '';
-                } else {
-                    alert('Please fill in all fields.');
-                }
-            });
-        }
+        // Contact form now uses native FormSubmit POST for reliable email verification and delivery.
